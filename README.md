@@ -6,4 +6,4 @@
 
 # The actual RPG and it's rules aren't included here but the quiz is.  
 
-# The skills acronym spew was inspired by the existing tabletop RPG Outbreak Undead. 
+
