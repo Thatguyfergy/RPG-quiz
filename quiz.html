@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/spewai.css"/>
+</head>
+<body>
+    
+    <div class="content">
+    <div class="user_id"><span></span></div>
+    <div class="inner">
+
+    <div class="header">Create Your Own Stats!</div>
+    <div class="divider"></div>
+
+
+    <div class="question" id="question"></div>
+    <ul class="answers" id="answers"></ul>
+
+    <p id="questions_left" class="questions_left"></p>
+
+
+    <strong id="quiz_complete" style="display: none; font-weight: normal;">
+        <h3>Your Quiz Results!</h3>
+
+        <strong>Strength</strong>: <span id="strength"></span><br>
+        <strong>Perception</strong>: <span id="perception"></span><br>
+        <strong>Willpower</strong>: <span id="willpower"></span><br>
+        <strong>Empathy</strong>: <span id="empathy"></span>
+
+        <div class="mtb">
+            <a href="/end.html" class="btn">Please copy your stats before clicking this link!</a>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script src="/spewjs/questions.js"></script>
+
+
+<script type="text/javascript">
+var randomized_questions = [12,2,3,23,9,8,32,15,22,0,38,7,34,4,21,17,13,20,26,11,10,5,24,37,39,1,35,6,33,19,14,28,30,16,27,36,31,29,18,25];
+var spew_answers = [];
+var uuid = 'thZYm2DY';
+
+function check_for_spew_quiz_id() {
+    console.log(document.getElementById('spew_quiz_id').value);
+}
+
+
+function get_next_question(ans) {
+	spew_answers.push(ans);
+	load_question();
+}
+
+function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;
+}
+
+function load_question() {
+	var q = randomized_questions[spew_answers.length];
+
+	if (qna.length === spew_answers.length) {
+        load_quiz_results();
+        return;
+    }
+
+	var answers = [];
+	for(i in qna[q]['options']) {
+		var output = '<li onclick="register_answer('+ i +')">';
+		output += qna[q]['options'][i];
+		output += '</li>'
+		answers.push(output);
+	}
+
+	answers = shuffle(answers);
+
+	output = '';
+	for(i in answers) {
+		output += answers[i];
+	}
+	
+	document.getElementById('question').innerHTML = qna[q]['question'];
+	document.getElementById('answers').innerHTML = output;
+    document.getElementById('questions_left').innerHTML = get_questions_left();
+}
+
+function get_questions_left() {
+    return (randomized_questions.length - spew_answers.length) +" questions left";
+}
+
+function register_answer(ans) {
+    var question_id = randomized_questions[spew_answers.length];
+	var data = "question_id="+ question_id;
+	data += "&answer="+ ans;
+	data += "&uuid="+ uuid;
+
+	ajax('/api/answer/',{
+        async: true
+        ,callback: successful_answer
+        ,type: "string"
+        ,method: "post"
+        ,data: data
+    });
+
+	get_next_question(ans);
+}
+
+function successful_answer(res) {
+	// console.log(res)
+}
+
+function load_quiz_results() {
+    document.getElementById('question').style.display = "none";
+    document.getElementById('answers').style.display = "none";
+    document.getElementById('questions_left').style.display = "none";
+
+    var totals = calculate_attributes();
+    for(i in totals) {
+        document.getElementById(i).innerHTML = totals[i];
+    }
+
+    document.getElementById('quiz_complete').style.display = "";
+}
+
+function calculate_attributes() {
+    var totals = {
+        "strength": 0,
+        "perception": 0,
+        "willpower": 0,
+        "empathy": 0
+    }
+
+    for(i in qna) {
+        totals[qna[i]['category']] += spew_answers[i];
+    }
+
+    save_attributes(totals);
+
+    return totals;
+}
+
+function save_attributes(totals) {
+    var data = "uuid="+ uuid;
+    data += "&strength="+ totals['strength'];
+    data += "&perception="+ totals['perception'];
+    data += "&willpower="+ totals['willpower'];
+    data += "&empathy="+ totals['empathy'];
+
+    ajax('/api/save_attributes/',{
+        async: true
+        ,callback: successful_attributes
+        ,type: "string"
+        ,method: "post"
+        ,data: data
+    });
+
+    return true;
+}
+
+function successful_attributes() {
+    // console.log("Successful Save of Attributes");
+}
+
+window.onload = function(){ load_question() };
+
+</script>
+
+	<script src="/js/scripts.js"></script>
+</body>
+</html>
