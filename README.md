@@ -1,21 +1,21 @@
-* Tabletop RPG Character Creation Quiz
+# Tabletop RPG Character Creation Quiz
 Welcome to the Tabletop RPG Character Creation Quiz! This is a simple project I made involving HTML, CSS, and JavaScript to help streamline the character creation process for tabletop RPGs by using a pseudo personality test. This quiz determines the four key skills each character needs in the game and explains how these skills affect gameplay.
 
-** Table of Contents
+## Table of Contents
 * Introduction
 * Features
 * Installation
 * Usage
 
-** Introduction
+## Introduction
 Creating characters for tabletop RPGs can be complex, especially when it comes to determining stats. This project aims to simplify that process by providing an easy-to-understand quiz that assigns character skills based on responses. While the actual RPG and its rules are not included, this quiz can serve as a helpful tool for any RPG enthusiasts.
 
-** Features
+## Features
 Interactive Quiz: Simple and intuitive personality test format.
 Dynamic Results: Determines four key skills for characters based on quiz answers.
 Responsive Design: Optimized for various devices using HTML and CSS.
 
-** Installation
+## Installation
 To run this project locally, follow these steps:
 
 Clone the repository:
