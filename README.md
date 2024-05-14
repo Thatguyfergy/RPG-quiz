@@ -19,11 +19,13 @@ Responsive Design: Optimized for various devices using HTML and CSS.
 To run this project locally, follow these steps:
 
 * Clone the repository:
+```bash
 git clone https://github.com/Thatguyfergy/RPG-quiz.git
-
+```
 * Navigate to the project directory:
+```bash
 cd RPG-quiz
-
+```
 * Open the index.html file in your preferred web browser.
 
 ## Usage
