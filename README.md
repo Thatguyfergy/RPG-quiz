@@ -18,13 +18,13 @@ Responsive Design: Optimized for various devices using HTML and CSS.
 ## Installation
 To run this project locally, follow these steps:
 
-Clone the repository:
+* Clone the repository:
 git clone https://github.com/Thatguyfergy/RPG-quiz.git
 
-Navigate to the project directory:
+* Navigate to the project directory:
 cd RPG-quiz
 
-Open the index.html file in your preferred web browser.
+* Open the index.html file in your preferred web browser.
 
 Usage
 To use the quiz, simply open the web application in your browser. Answer the questions presented in the quiz to determine the key skills for your RPG character. The results will be displayed at the end of the quiz.
